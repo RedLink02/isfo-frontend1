@@ -22,41 +22,34 @@ export default function Content(props) {
     
     function ajouter() {
       
-      const idExiste = etudiants.some(item => item.id == newObj.id)
+      const idExiste = etudiants.some(item => item.id == oEtdudiant.id)
 
       if(idExiste){
         alert("L'id existe déjà")
       }else{
-        setEtudiants([...etudiants, newObj])
-        setId(Number(newObj.id) + 1);
+        setEtudiants([...etudiants, oEtdudiant])
       }
-      setNom("");
-      setNote("");
   }
 
     function modifier(){
-      const newObj = {id:id, nom:nom, note:note}
       setEtudiants(etudiants.map(function(item){
         if(item.id == id){
-          return newObj
+          return oEtdudiant
         }
         return item
       }))
     }
 
     function supprimer(){
-      const newObj = {id:id, nom:nom, note:note}
       setEtudiants(etudiants.filter(function(item){
-        if(item.id != id){
+        if(item.id != oEtdudiant.id){
           return item
         }
       }))
     }
 
     function afficher_details(item) {
-      setId(item.id);
-      setNom(item.nom);
-      setNote(item.note);
+      setoEtudiant({...oEtdudiant, id: item.id, nom: item.nom, note: item.note});
     }
 
     function tri_liste(){
@@ -93,16 +86,16 @@ export default function Content(props) {
                 <div className="grid gap-4 md:grid-cols-3">
 
                   
-                    <input type="text" placeholder="ID" value={id} onChange={function (event) {setId(event.target.value);}}
+                    <input type="text" placeholder="ID" value={oEtdudiant.id} onChange={function (event) {setoEtudiant({...oEtdudiant, id: event.target.value});}}
                         className="rounded-lg border border-slate-300 px-4 py-2 outline-none focus:border-blue-500"
                     />
  
-                    <input type="text" placeholder="Nom" value={nom} onChange={function (event) {setNom(event.target.value);}}
+                    <input type="text" placeholder="Nom" value={oEtdudiant.nom} onChange={function (event) {setoEtudiant({...oEtdudiant, nom: event.target.value});}}
                         className="rounded-lg border border-slate-300 px-4 py-2 outline-none focus:border-blue-500"
                     />
  
  
-                    <input type="number" placeholder="Note" value={note} onChange={function (event) {setNote(event.target.value);}}
+                    <input type="number" placeholder="Note" value={oEtdudiant.note} onChange={function (event) {setoEtudiant({...oEtdudiant, note: event.target.value});}}
                         className="rounded-lg border border-slate-300 px-4 py-2 outline-none focus:border-blue-500"
                     />
  
